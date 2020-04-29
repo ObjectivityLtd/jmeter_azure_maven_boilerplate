@@ -1,8 +1,3 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-#https://dev.azure.com/gstarczewski/jmeter/_apis/build/builds?api-version=5.1
 name: $(BuildID)
 trigger: none
 pool: JMeterExecutors
@@ -12,7 +7,7 @@ variables:
   - name: name
     value: test #test file name without .jmx
   - name: base_dir
-    value: $(System.DefaultWorkingDirectory)/src/Objectivity.mcdum.PerformanceTests/JMeter #location of the project from repo root
+    value: $(System.DefaultWorkingDirectory)/ #location of the project from repo root
   - name: env
     value: test #env for test
   - name: variant

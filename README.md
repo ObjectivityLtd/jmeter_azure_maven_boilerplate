@@ -9,7 +9,7 @@ Use it when you want to run JMeter tests with Azure pipelines and either no dist
 + Trend reports are generated with JMeter reporting feature
 + Optionally JMeter results can be streamed to Azure insights via Azure backend listener: https://github.com/adrianmo/jmeter-backend-azure
 + Azure pipelines are short and extensible based on a included template.
-+ Notifications can be send to Teams channel via webHook
++ Notifications can be sent to Teams channel via webHook
 + Solution has BATS tests (only needed if you plan to customize the project) 
 
 
