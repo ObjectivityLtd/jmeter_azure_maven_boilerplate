@@ -21,8 +21,12 @@ jobs:
     steps:
       - bash: |
           allowedErrorRate=0
-          printf "user.properties used: \n" && cat $(test_props_dir)/user.properties
-          allowedErrorRate=$(cat $(base_props_dir)/base.user.properties $(test_props_dir)/user.properties | grep allowedErrorRate | tail -n1 | awk -F= '{print $2}')
+          printf "\n\n" > empty
+          printf "\nbase.user.properties used: \n" && cat $(base_props_dir)/base.user.properties
+          printf "\nuser.properties used: \n" && cat $(test_props_dir)/user.properties
+          printf "\n"
+          cat $(base_props_dir)/base.user.properties empty $(test_props_dir)/user.properties | grep allowedErrorRate
+          allowedErrorRate=$(cat $(base_props_dir)/base.user.properties empty $(test_props_dir)/user.properties | grep allowedErrorRate | tail -n1 | awk -F= '{print $2}')
           echo "##vso[task.setvariable variable=allowedErrorRate]${allowedErrorRate}"
         displayName: 'Process user.properties for $(env)/$(variant)'
 
