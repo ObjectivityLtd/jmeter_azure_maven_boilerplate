@@ -13,8 +13,16 @@ Use it when you want to run JMeter tests with Azure pipelines and either no dist
 + Solution has BATS tests (only needed if you plan to customize the project) 
 
 
+#Requirements to run the solution locally.
+
+JAVA 1.8+ and maven 3.6.3 or maven wrapper.
+See here to understand how to run it: https://medium.com/@gabriel.starczewski/running-jmeter-tests-with-maven-and-maven-wrapper-6725aa025bd9
+
 ## How to use ?
 
-First, please prepare the following information:
+You need to fork/copy/import the repo to the one you own and then 
+
+1) Configure the repository 
+2) Configure secrets and pipelines in Azure DevOps
 
 
