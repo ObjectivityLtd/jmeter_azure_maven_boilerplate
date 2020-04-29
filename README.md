@@ -66,7 +66,7 @@ You can start pipeline now.
 ### Write and manage your test
 
 You can extend test.jmx file and use it.
-You should externalize your test parameters by palcing them in user.properties files.
+You should externalize your test parameters by placing them in user.properties files.
 Optionally configure thresholds.properties.
 
 ### More info
