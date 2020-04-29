@@ -20,6 +20,9 @@ See here to understand how to run it: https://medium.com/@gabriel.starczewski/ru
 
 ## How to use ?
 
+Please see the video: https://web.microsoftstream.com/video/7f80d403-420d-4ab3-9479-4ac042dd8af6?list=studio
+or follow the written instruction below:
+
 You need to fork/copy/import the repo to the one you own and then 
 
 1) Configure the repository 
