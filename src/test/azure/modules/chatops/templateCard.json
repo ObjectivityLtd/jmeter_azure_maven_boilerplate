@@ -1,0 +1,46 @@
+{
+  "@type": "MessageCard",
+  "@context": "http://schema.org/extensions",
+  "themeColor": "d70015",
+  "summary": "::SUMMARY",
+  "sections": [
+    {
+      "activityTitle": "@SUMMARY, build trigger: @TRIGGERED",
+      "activitySubtitle": "@EXPLANATION",
+      "activityImage": "",
+      "markdown": true
+    }
+  ],
+  "potentialAction": [
+    {
+      "@type": "OpenUri",
+      "name": "Build",
+      "targets": [
+        {
+          "os": "default",
+          "uri": "@BUILD"
+        }
+      ]
+    },
+    {
+      "@type": "OpenUri",
+      "name": "Reports",
+      "targets": [
+        {
+          "os": "default",
+          "uri": "@REPORTS"
+        }
+      ]
+    },
+    {
+      "@type": "OpenUri",
+      "name": "Insights",
+      "targets": [
+        {
+          "os": "default",
+          "uri": "@INSIGHTS"
+        }
+      ]
+    }
+  ]
+}

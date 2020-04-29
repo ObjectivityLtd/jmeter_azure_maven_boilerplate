@@ -1,0 +1,46 @@
+{
+  "@type": "MessageCard",
+  "@context": "http://schema.org/extensions",
+  "themeColor": "d70015",
+  "summary": "::SUMMARY",
+  "sections": [
+    {
+      "activityTitle": "Performance Tests, build trigger: manual",
+      "activitySubtitle": "simple test",
+      "activityImage": "",
+      "markdown": true
+    }
+  ],
+  "potentialAction": [
+    {
+      "@type": "OpenUri",
+      "name": "Build",
+      "targets": [
+        {
+          "os": "default",
+          "uri": "http://o.pl"
+        }
+      ]
+    },
+    {
+      "@type": "OpenUri",
+      "name": "Reports",
+      "targets": [
+        {
+          "os": "default",
+          "uri": "http://o.pl"
+        }
+      ]
+    },
+    {
+      "@type": "OpenUri",
+      "name": "Insights",
+      "targets": [
+        {
+          "os": "default",
+          "uri": "http://o.pl"
+        }
+      ]
+    }
+  ]
+}

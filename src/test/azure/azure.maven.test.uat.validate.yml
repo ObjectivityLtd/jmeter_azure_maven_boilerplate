@@ -1,0 +1,41 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+#https://dev.azure.com/gstarczewski/jmeter/_apis/build/builds?api-version=5.1
+name: $(BuildID)
+schedules:
+  #every 5 minutes
+  - cron: "0 * * * *"
+    displayName: Indicative build
+    branches:
+      include:
+        - master
+    always: true
+
+trigger: none
+pool: JMeterExecutors
+variables:
+  - group: performance-secrets #must store DevOps 'pat' secret
+  #jmeter test variables
+  - name: name
+    value: test #test file name without .jmx
+  - name: base_dir
+    value: $(System.DefaultWorkingDirectory)/ #location of the project from repo root
+  - name: env
+    value: uat #env for test
+  - name: variant
+    value: validate #test variant
+  - name: xms
+    value: 2048
+  - name: xmx
+    value: 3048
+  - name: summary
+    value: "Performance test for $(env) FAILED"
+  - name: explanation
+    value: "Test explantion in plain English. [$(variant)]"
+  - name: options
+    value:
+
+jobs:
+- template: modules/templates/azure.maven.test.template.yml

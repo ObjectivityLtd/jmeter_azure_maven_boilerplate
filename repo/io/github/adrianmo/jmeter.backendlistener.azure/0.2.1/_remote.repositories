@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Apr 24 13:16:42 CEST 2020
+jmeter.backendlistener.azure-0.2.1.pom>=
+jmeter.backendlistener.azure-0.2.1-sources.jar>=
+jmeter.backendlistener.azure-0.2.1-javadoc.jar>=
+jmeter.backendlistener.azure-0.2.1.jar>=

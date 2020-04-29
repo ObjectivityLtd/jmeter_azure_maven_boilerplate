@@ -1,0 +1,8 @@
+POST https://some_hook
+Content-Type: application/json
+
+{
+  "text": "Yes, my lord. I will obey the team"
+}
+
+###

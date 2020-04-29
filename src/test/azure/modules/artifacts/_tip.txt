@@ -1,0 +1,4 @@
+Script and test to download last N artifacts (jmeter results file) from pipeline build.
+.bats are unit tests with mock. Integration test requires a PAT and is found in test.sh
+
+Do not modify unless you know what you are doing.

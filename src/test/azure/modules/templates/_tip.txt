@@ -1,0 +1,9 @@
+Here is the pipeline template that we include in each individual pipeline. If you want to customize your pipeline
+
+- make a copy
+- have you pipelines extend your copy
+- make changes
+- write tests for your changes
+- test
+
+Do not modify unless you know what you are doing.

@@ -1,0 +1,2 @@
+Save your jmeter script in here
+Put here all the test data you need if they are shared

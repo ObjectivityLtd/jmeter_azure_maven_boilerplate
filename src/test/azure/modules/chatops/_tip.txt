@@ -1,0 +1,3 @@
+Script and test to make it easy to integrate with Teams Channels with a custom card. We use it in template pipeline
+
+Do not modify unless you know what you are doing.

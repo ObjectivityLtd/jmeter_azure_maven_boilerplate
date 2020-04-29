@@ -1,0 +1,12 @@
+In this approach tests configuration is controlled via usage of properties files.
+You should create one user.properties files per environment and test variant. Put there all jmeter properties that you want to be able to change.
+If there are common properties you can put them in base.user.properties
+if you want to define optional thresholds for samplers create optional thresholds.properties in the same directory. You can then specify thresholds limits like this
+
+    a) individual values, build will fail if there is at least 1 request over threshold e.g. (times are in ms)
+        POST /api/dummy=5000
+
+    b) percetile-based values, build will fail if there is e.g. 5% requets higher than threshold (95-th percentile)
+        POST /api/dummy=5000=95
+
+Build will fail even if all requests are successful but some are over the threshold.

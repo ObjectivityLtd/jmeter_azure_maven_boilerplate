@@ -1,0 +1,4 @@
+
+Tests suite runner. Tests should be run in CI when solution is developed or to validate configuration of the project.
+
+Do not modify unless you know what you are doing.

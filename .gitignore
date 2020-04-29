@@ -1,0 +1,5 @@
+target
+src/test/azure/modules/reports/working_dir/*
+**/.pytest_cache
+.idea
+*.iml

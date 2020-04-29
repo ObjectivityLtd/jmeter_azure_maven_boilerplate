@@ -1,0 +1,7 @@
+This folder contains
+
+modules - scripts and functionalities that are used in the pipeline
+*.yaml - pipelines for Azure, you should edit each of them and provide parameters such as base_dir, env, name, variant, ...
+         you do not need to edit the template included (azure.maven.test.template) unless you want to make custom changes
+azure.properties - you should normally provide here devops_url, user and webhook URL. You can provide optionally defintion_id if you want to run
+                   integration tests on this solution itself, a rare case.

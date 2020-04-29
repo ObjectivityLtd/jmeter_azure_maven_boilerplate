@@ -1,0 +1,26 @@
+This project contains a solution to run jmeter tests with maven on azure DevOps.
+The architecture covered here is the following https://github.com/ObjectivityLtd/jmeter-kubernetes/wiki/1.-Private-Agent-and-Traditional-Grid
+
+See here:
+    https://www.youtube.com/watch?v=tOVuKxDtpeo or
+    https://medium.com/@gabriel.starczewski/running-jmeter-tests-with-maven-and-maven-wrapper-6725aa025bd9
+to understand why we use maven to do that.
+
+Structure:
+
+repo - contains custom plugins that are not available in maven central repository
+src/test
+         /azure - contains modules that allow for integration with Azure
+                /modules
+                        /artifacts - provides way to download pipeline artifacts (test results) from DevOp for further processing
+                        /bats - unit and integration tests for the solution
+                        /chatops - integration with Teams Channels via Cards
+                        /reports - holds logic for generation of a single report from many jmeter reports
+                        /templates - contains a pipeline template
+                        /thresholds - contains logic to fail build when response times are above defined thresholds in thresholds.properties
+                        *.yml - contains definitions of pipelines for AzureDevops
+                        azure.properties - controls integration with Azure DevOps, Insights and Teams Channels for notifications
+                        trend.report.properties - contains properties used to generate trend report - a summary report from last N jmeter runs
+         /jmeter
+                /props - contains user.properties files per environment and test variant. Can optionally contain thresholds.properties that allow to evaluate test results against response times
+         test.jmx - jmeter test
