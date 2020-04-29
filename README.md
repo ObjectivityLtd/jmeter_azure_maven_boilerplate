@@ -24,6 +24,7 @@ You need to fork/copy/import the repo to the one you own and then
 
 1) Configure the repository 
 2) Configure secrets and pipelines in Azure DevOps
+3) Attach private build agent to JMeterExecutors pool.
 
 
 #### Configure the repository

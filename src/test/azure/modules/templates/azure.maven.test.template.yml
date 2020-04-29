@@ -2,7 +2,7 @@ jobs:
   - job: jmeter
     timeoutInMinutes: 120
     variables:
-      maven_root: $(base_dir)/maven
+      maven_root: $(base_dir)
       target_dir: $(maven_root)/target
       report_dir: $(target_dir)/jmeter/reports
       modules_dir: $(maven_root)/src/test/azure/modules
