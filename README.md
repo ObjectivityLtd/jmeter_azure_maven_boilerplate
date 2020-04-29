@@ -54,6 +54,15 @@ Configure pipelines:
 
 Go to Pipelines -> New Pipeline -> Select your repository and YAML file for pipeline. Save & Run. Repeat for other pipelines.
 
+#### Attach private build agent to JMeterExecutors pool.
+
+In DevOps project click Project Settings -> Agen Pools -> New Pool. Name it JMeterExecutors. Attach the agent by running the command
+
+`docker run -e AZP_URL=https://dev.azure.com/your_org -e AZP_TOKEN=YOUR_PAT AZP_POOL=JMeterExecutors -e AZP_AGENT_NAME=docker_gab gabrielstar/jmeter:2.2`
+
+You can start pipeline now.
+---
+
 ### Write and manage your test
 
 You can extend test.jmx file and use it.
