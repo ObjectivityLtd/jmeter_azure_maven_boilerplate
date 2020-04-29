@@ -48,7 +48,7 @@ Configure secrets:
 
 Go to your DevOps project Pipelines->Library and create variables group called 'performance-secrets'.
 Create a secret variable called 'pat'. The value should be that of your personal access token that needs to have permissions to download build artifacts.
-
+![](https://github.com/ObjectivityLtd/jmeter_azure_maven_boilerplate/blob/master/img/pat.png)
 Configure pipelines:
 
 Go to Pipelines -> New Pipeline -> Select your repository and YAML file for pipeline. Save & Run. Repeat for other pipelines.
