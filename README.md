@@ -63,6 +63,8 @@ In DevOps project click Project Settings -> Agen Pools -> New Pool. Name it JMet
 
 `docker run -e AZP_URL=https://dev.azure.com/your_org -e AZP_TOKEN=YOUR_PAT AZP_POOL=JMeterExecutors -e AZP_AGENT_NAME=docker_gab gabrielstar/jmeter:2.2`
 
+Note: This can be container instance instead of a bare VM
+
 You can start pipeline now.
 ---
 
