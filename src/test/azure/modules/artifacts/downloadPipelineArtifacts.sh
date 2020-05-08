@@ -18,6 +18,7 @@ function run_main() {
   fi
 
   cd ${artifacts_module_dir}
+  python3 -m pip install --upgrade pip
   pip3 install -r requirements.txt
   python3 downloadPipelineArtifacts.py -d ${definition_id} -s ${pat}
   printf "Copying current results too\n"
