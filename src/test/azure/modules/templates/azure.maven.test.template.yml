@@ -95,7 +95,7 @@ jobs:
 
       - bash: |
           devops_url=$(cat $(modules_dir)/../azure.properties | grep devops_url | awk -F= '{print $2}')
-          insights_url=$(cat $(base_props_dir)/base.user.properties $(test_props_dir)/user.properties | grep insights_url | tail -n1 | awk -F= '{print $2}')
+          insights_url=$(echo "" > $(base_props_dir)/base.user.properties && cat $(base_props_dir)/base.user.properties $(test_props_dir)/user.properties | grep insights_url | tail -n1 | awk -F= '{print $2}')
           echo "##vso[task.setvariable variable=devops_url]${devops_url}"
           echo "##vso[task.setvariable variable=insights_url]${insights_url}"
           echo "##vso[task.setvariable variable=build_url]${devops_url}/_build/results?buildId=$(Build.BuildId)\&view=results"
