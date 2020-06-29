@@ -60,5 +60,25 @@ function setup(){
     refute_output --partial '@EXPLANATION'
     refute_output --partial '@BUILD'
     refute_output --partial '@REPORTS'
+    refute_output --partial '@INSIGHTS'
 }
 
+@test "When base.user.properties has no new line at EOF insights_url is correctly extracted " {
+    #test case added due to https://github.com/ObjectivityLtd/jmeter_azure_maven_boilerplate/issues/2
+    local dir=test_data
+    local SECOND_INSIGHTS_URL=https://portal.azure.com/insights2/overview
+
+    function removeEOL(){
+        printf %s "$(cat $dir/base.user.properties)" > $dir/test.base.user.properties
+    }
+    function test(){
+      insights_url=$(cat $dir/test.base.user.properties  $dir/user.properties | grep insights_url | tail -n1 | awk -F= '{print $2}')
+      echo "$insights_url"
+    }
+    #GIVEN firt user.properties file has no new line at EOF
+    removeEOL
+    #WHEN I extract insights_url
+    run test
+    #THEN correct one is extractwd
+    assert_output $SECOND_INSIGHTS_URL
+}
