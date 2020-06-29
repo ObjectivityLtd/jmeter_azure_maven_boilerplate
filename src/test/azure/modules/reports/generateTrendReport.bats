@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-load $HOME/test/'test_helper/bats-assert/load.bash'
-load $HOME/test/'test_helper/bats-support/load.bash'
+load $HOME/test/'test_helper/batsassert/load.bash'
+load $HOME/test/'test_helper/batscore/load.bash'
 
 function setup(){
   source generateTrendReport.sh
@@ -11,6 +11,7 @@ function setup(){
   report_dir=report
   result_file="merged.csv"
   rm -Rf $working_dir/*
+  mkdir -p $working_dir
   cp test_data/*.csv $working_dir/
 }
 

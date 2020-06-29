@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-load $HOME/test/'test_helper/bats-assert/load.bash'
-load $HOME/test/'test_helper/bats-support/load.bash'
+load $HOME/test/'test_helper/batsassert/load.bash'
+load $HOME/test/'test_helper/batscore/load.bash'
 
 function setup(){
    source generateReport.sh
    definition_id=1
    artifacts_module_dir=$(pwd)/test_data
    rm -rf $(pwd)/test_data/csv/*
+   mkdir -p $(pwd)/test_data/csv
    cp $(pwd)/test_data/*.csv $(pwd)/test_data/csv/
    results_dir=test_data
    result_file=test_data/results.csv
