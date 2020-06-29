@@ -65,6 +65,7 @@ function setup(){
 
 @test "When base.user.properties has no new line at EOF insights_url is correctly extracted " {
     #test case added due to https://github.com/ObjectivityLtd/jmeter_azure_maven_boilerplate/issues/2
+    #'Set Variables for Notification'
     local dir=test_data
     local SECOND_INSIGHTS_URL=https://portal.azure.com/insights2/overview
 
@@ -75,10 +76,10 @@ function setup(){
       insights_url=$(echo "" >>$dir/test.base.user.properties && cat $dir/test.base.user.properties  $dir/user.properties | grep insights_url | tail -n1 | awk -F= '{print $2}')
       echo "$insights_url"
     }
-    #GIVEN firt user.properties file has no new line at EOF
+    #GIVEN first user.properties file has no new line at EOF
     removeEOL
-    #WHEN I extract insights_url
+    #WHEN I extract insights_url based on two files as in pipeline template step 'Set Variables for Notification'
     run test
-    #THEN correct one is extractwd
+    #THEN correct one is extracted
     assert_output $SECOND_INSIGHTS_URL
 }
