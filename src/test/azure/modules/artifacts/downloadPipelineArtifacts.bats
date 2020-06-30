@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-load $HOME/test/'test_helper/batsassert/load.bash'
+load $HOME/test/'test_helper/bats-assert/load.bash'
 
 function setup(){
   mkdir -p test_data/csv && rm -rf test_data/csv/*

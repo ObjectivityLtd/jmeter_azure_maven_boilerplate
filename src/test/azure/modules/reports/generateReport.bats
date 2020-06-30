@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-load $HOME/test/'test_helper/batsassert/load.bash'
+load $HOME/test/'test_helper/bats-assert/load.bash'
 
 function setup(){
    source generateReport.sh
