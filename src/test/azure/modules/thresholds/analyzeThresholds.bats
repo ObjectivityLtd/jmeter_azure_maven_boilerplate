@@ -1,7 +1,6 @@
 #!/usr/bin/env bats
 
 load $HOME/test/'test_helper/batsassert/load.bash'
-load $HOME/test/'test_helper/batscore/load.bash'
 
 function setup(){
   source analyzeThresholds.sh
