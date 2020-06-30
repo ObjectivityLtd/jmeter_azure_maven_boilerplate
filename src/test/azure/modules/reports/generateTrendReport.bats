@@ -4,8 +4,8 @@ load $HOME/test/'test_helper/bats-assert/load.bash'
 
 function setup(){
   source generateTrendReport.sh
-  working_dir=$(pwd)/working_dir #we want to give it as relative name because of ease of testing
-  pom_root=$(pwd)/../../../../..
+  working_dir="$(pwd)"/working_dir #we want to give it as relative name because of ease of testing
+  pom_root="$(pwd)"/../../../../..
   target_path=${pom_root}/target
   report_dir=report
   result_file="merged.csv"
@@ -40,7 +40,7 @@ function setup(){
 @test "Script should correctly detect JMeter binary from target" {
   #GIVEN dependencies are resolved
   #mvn compile -q -f "$pom_root"
-  target_path=$(pwd)/test_data
+  target_path="$(pwd)"/test_data
   #WHEN setJMeterExecutable is run
   run setJMeterExecutable
   #THEN Apache JMeter binary should be detected
