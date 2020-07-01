@@ -30,6 +30,7 @@ jobs:
 
       - bash: |
           PATH=/home/vsts/bin:$PATH && \
+          PATH=$HOME/bin:$PATH && \
           PATH=/home/vsts/.local/bin:$PATH && \
           hash bats && \
           hash pytest && \
