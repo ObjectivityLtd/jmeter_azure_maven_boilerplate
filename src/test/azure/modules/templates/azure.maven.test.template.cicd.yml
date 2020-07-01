@@ -37,7 +37,7 @@ jobs:
         inputs:
           failTaskOnFailedTests: true
           testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-          testResultsFiles: '**/TEST-*.xml'
+          testResultsFiles: '**/TestReport-*.xml'
 
       - bash: |
           allowedErrorRate=0
