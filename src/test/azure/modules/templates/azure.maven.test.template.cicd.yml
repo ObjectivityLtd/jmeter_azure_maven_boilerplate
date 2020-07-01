@@ -26,6 +26,7 @@ jobs:
           scriptPath: $(bats_module_dir)/install.sh
 
       - bash: |
+          PATH=/home/vsts/bin/bats:$PATH && \
           hash bats && \
           cd $(base_dir) && bash $(bats_module_dir)/run_all_tests.sh
         displayName: Run Tests
