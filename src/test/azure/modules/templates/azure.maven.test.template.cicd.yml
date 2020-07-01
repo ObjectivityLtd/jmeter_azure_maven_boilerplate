@@ -29,7 +29,15 @@ jobs:
           PATH=/home/vsts/bin:$PATH && \
           hash bats && \
           cd $(bats_module_dir) && bash run_all_tests.sh
+
         displayName: Run Tests
+
+      - task: PublishTestResults@2
+        displayName: Publish Test Results
+        inputs:
+          failTaskOnFailedTests: true
+          testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+          testResultsFiles: '**/TEST-*.xml'
 
       - bash: |
           allowedErrorRate=0
