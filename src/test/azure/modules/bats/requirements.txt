@@ -1,3 +1,7 @@
 pyyaml
 requests
 configparser
+logging
+shutil
+zipfile
+argparse
