@@ -1,24 +1,24 @@
-variables:
-  maven_root: $(base_dir)
-  target_dir: $(maven_root)/target
-  report_dir: $(target_dir)/jmeter/reports
-  modules_dir: $(maven_root)/src/test/azure/modules
-  bats_module_dir: $(modules_dir)/bats
-  artifacts_module_dir:  $(modules_dir)/artifacts
-  trend_reports_module_dir:  $(modules_dir)/reports
-  thresholds_module_dir:  $(modules_dir)/thresholds
-  chatops_module_dir:  $(modules_dir)/chatops
-  trend_report_dir: report
-  trend_report_dir_absolute_path: $(artifacts_module_dir)/csv/$(trend_report_dir)
-  results_dir: $(target_dir)/jmeter/results
-  base_props_dir: $(maven_root)/src/test/jmeter/props
-  test_props_dir: $(base_props_dir)/$(env)/$(variant)
-  artifact_name: jmeter_report
-  jmeter_scenario_pom: $(maven_root)/pom.xml
-
 jobs:
-  - job: tests
+  - job: jmeter
     timeoutInMinutes: 5
+    variables:
+      maven_root: $(base_dir)
+      target_dir: $(maven_root)/target
+      report_dir: $(target_dir)/jmeter/reports
+      modules_dir: $(maven_root)/src/test/azure/modules
+      bats_module_dir: $(modules_dir)/bats
+      artifacts_module_dir:  $(modules_dir)/artifacts
+      trend_reports_module_dir:  $(modules_dir)/reports
+      thresholds_module_dir:  $(modules_dir)/thresholds
+      chatops_module_dir:  $(modules_dir)/chatops
+      trend_report_dir: report
+      trend_report_dir_absolute_path: $(artifacts_module_dir)/csv/$(trend_report_dir)
+      results_dir: $(target_dir)/jmeter/results
+      base_props_dir: $(maven_root)/src/test/jmeter/props
+      test_props_dir: $(base_props_dir)/$(env)/$(variant)
+      artifact_name: jmeter_report
+      jmeter_scenario_pom: $(maven_root)/pom.xml
+
     steps:
       - task: ShellScript@2
         displayName: Install BATS
@@ -26,12 +26,9 @@ jobs:
           scriptPath: $(bats_module_dir)/install.sh
 
       - bash: |
-        cd $(base_dir) && /home/vsts/.local/bin/bats $(bats_module_dir)/run_all_tests.sh
-      displayName: Run Tests
+          cd $(base_dir) && /home/vsts/.local/bin/bats $(bats_module_dir)/run_all_tests.sh
+        displayName: Run Tests
 
-  - job: jmeter
-    timeoutInMinutes: 5
-    steps:
       - bash: |
           allowedErrorRate=0
           printf "\n\n" > empty
