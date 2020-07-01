@@ -34,7 +34,6 @@ jobs:
           PATH=/home/vsts/.local/bin:$PATH && \
           hash bats && \
           hash pytest && \
-          python3 -m pytest $(artifacts_module_dir)/*Test.py && \
           cd $(bats_module_dir) && bash run_all_tests.sh
 
 
