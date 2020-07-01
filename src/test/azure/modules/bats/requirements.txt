@@ -1,0 +1,5 @@
+pyyaml
+requests
+configparser
+zipfile36
+pytest

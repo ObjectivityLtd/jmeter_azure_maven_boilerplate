@@ -35,7 +35,7 @@ function teardown(){
 
 @test "Python tests should pass" {
   function python_tests(){
-    python -m pytest *Test.py
+    python3 -m pytest *Test.py || python -m pytest *Test.py
   }
   run python_tests
   assert_success

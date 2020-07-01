@@ -1,0 +1,138 @@
+jobs:
+  - job: jmeter
+    timeoutInMinutes: 5
+    variables:
+      maven_root: $(base_dir)
+      target_dir: $(maven_root)/target
+      report_dir: $(target_dir)/jmeter/reports
+      modules_dir: $(maven_root)/src/test/azure/modules
+      bats_module_dir: $(modules_dir)/bats
+      artifacts_module_dir:  $(modules_dir)/artifacts
+      trend_reports_module_dir:  $(modules_dir)/reports
+      thresholds_module_dir:  $(modules_dir)/thresholds
+      chatops_module_dir:  $(modules_dir)/chatops
+      trend_report_dir: report
+      trend_report_dir_absolute_path: $(artifacts_module_dir)/csv/$(trend_report_dir)
+      results_dir: $(target_dir)/jmeter/results
+      base_props_dir: $(maven_root)/src/test/jmeter/props
+      test_props_dir: $(base_props_dir)/$(env)/$(variant)
+      artifact_name: jmeter_report
+      jmeter_scenario_pom: $(maven_root)/pom.xml
+
+    steps:
+      - task: ShellScript@2
+        displayName: Install BATS
+        inputs:
+          scriptPath: $(bats_module_dir)/install.sh
+
+      - script: pip3 install --upgrade pip && pip3 install -U pip setuptools && pip3 install -r $(bats_module_dir)/requirements.txt
+        displayName: Install Python Lib
+
+      - bash: |
+          PATH=/home/vsts/bin:$PATH && \
+          PATH=$HOME/bin:$PATH && \
+          PATH=/home/vsts/.local/bin:$PATH && \
+          hash bats && \
+          hash pytest && \
+          cd $(bats_module_dir) && bash run_all_tests.sh
+
+
+        displayName: Run Tests
+
+      - task: PublishTestResults@2
+        displayName: Publish Test Results
+        inputs:
+          failTaskOnFailedTests: true
+          testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+          testResultsFiles: '**/TestReport-*.xml'
+
+      - bash: |
+          allowedErrorRate=0
+          printf "\n\n" > empty
+          printf "\nbase.user.properties used: \n" && cat $(base_props_dir)/base.user.properties
+          printf "\nuser.properties used: \n" && cat $(test_props_dir)/user.properties
+          printf "\n"
+          cat $(base_props_dir)/base.user.properties empty $(test_props_dir)/user.properties | grep allowedErrorRate
+          allowedErrorRate=$(cat $(base_props_dir)/base.user.properties empty $(test_props_dir)/user.properties | grep allowedErrorRate | tail -n1 | awk -F= '{print $2}')
+          echo "##vso[task.setvariable variable=allowedErrorRate]${allowedErrorRate}"
+        displayName: 'Process user.properties for $(env)/$(variant)'
+
+      - task: PublishPipelineArtifact@1
+        displayName: Archive user.properties
+        inputs:
+          path: $(test_props_dir)/user.properties
+          artifact: user.properties
+
+      - task: Maven@3
+        displayName: Run $(name).jmx with maven
+        inputs:
+          mavenPomFile: $(jmeter_scenario_pom)
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '1.8'
+          jdkArchitectureOption: 'x64'
+          publishJUnitResults: false
+          goals: 'clean verify -Denv=$(env) -Dvariant=$(variant) -Dxms=$(xms) -Dxmx=$(xmx) -DallowedErrorRate=$(allowedErrorRate) $(options)'
+
+      - task: PublishPipelineArtifact@1
+        condition: always()
+        displayName: Archive Report for $(name) in pipeline
+        inputs:
+          path: $(report_dir)
+          artifact: $(artifact_name)
+
+      - bash: |
+          cd $(results_dir) &&  result_file=$(ls *$(name).csv) && echo "##vso[task.setvariable variable=result_file]${result_file}"
+        condition: always()
+        displayName: 'Retrieve result file name'
+
+      - task: PublishPipelineArtifact@1
+        condition: always()
+        displayName: Archive result file
+        inputs:
+          path: $(results_dir)/$(result_file)
+          artifact: results.csv
+
+      - task: ShellScript@2
+        condition: always()
+        displayName: Generate trend report
+        inputs:
+          scriptPath: $(trend_reports_module_dir)/generateReport.sh
+          args: $(System.DefinitionId) $(artifacts_module_dir) $(results_dir) $(result_file) $(pat) $(trend_reports_module_dir) $(target_dir) $(trend_report_dir)
+
+      - task: PublishPipelineArtifact@1
+        condition: always()
+        displayName: Archive trend file
+        inputs:
+          path: $(trend_report_dir_absolute_path)
+          artifact: trend_report
+
+      - task: PublishPipelineArtifact@1
+        condition: always()
+        displayName: Archive jmeter dir
+        inputs:
+          path: $(target_dir)/jmeter
+          artifact: jmeter_all
+
+      - task: ShellScript@2
+        condition: always()
+        displayName: Analyze thresholds for the results
+        inputs:
+          scriptPath: $(thresholds_module_dir)/analyzeThresholds.sh
+          args: $(test_props_dir)/thresholds.properties $(results_dir)/$(result_file)
+
+      - bash: |
+          devops_url=$(cat $(modules_dir)/../azure.properties | grep devops_url | awk -F= '{print $2}')
+          insights_url=$(echo "" > $(base_props_dir)/base.user.properties && cat $(base_props_dir)/base.user.properties $(test_props_dir)/user.properties | grep insights_url | tail -n1 | awk -F= '{print $2}')
+          echo "##vso[task.setvariable variable=devops_url]${devops_url}"
+          echo "##vso[task.setvariable variable=insights_url]${insights_url}"
+          echo "##vso[task.setvariable variable=build_url]${devops_url}/_build/results?buildId=$(Build.BuildId)\&view=results"
+          echo "##vso[task.setvariable variable=artifacts_url]${devops_url}/_build/results?buildId=$(Build.BuildId)\&view=artifacts\&type=publishedArtifacts"
+        condition: failed()
+        displayName: 'Set Variables for Notification'
+
+      - task: ShellScript@2
+        condition: failed()
+        displayName: Notify teams channel on failure
+        inputs:
+          scriptPath: $(chatops_module_dir)/notifyTeamsChannel.sh
+          args: templateCard.json ../../azure.properties "@SUMMARY^$(summary)","@ENV^$(env)","@TRIGGERED^$(Build.Reason)","@EXPLANATION^$(explanation)","@BUILD^$(build_url)","@REPORTS^$(artifacts_url),"@INSIGHTS^$(insights_url)"

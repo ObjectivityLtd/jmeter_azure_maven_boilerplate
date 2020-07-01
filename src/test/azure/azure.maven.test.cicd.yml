@@ -32,4 +32,4 @@ variables:
     value:
 
 jobs:
-- template: modules/templates/azure.maven.test.template.yml
+- template: modules/templates/azure.maven.test.template.cicd.yml
