@@ -25,7 +25,7 @@ jobs:
         inputs:
           scriptPath: $(bats_module_dir)/install.sh
 
-      - script: pip3 install -r $(bats_module_dir)/requirements.txt
+      - script: pip install --upgrade pip && pip install -r $(bats_module_dir)/requirements.txt
         displayName: Install Python Lib
 
       - bash: |

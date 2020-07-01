@@ -3,7 +3,8 @@
 load $HOME/test/'test_helper/bats-assert/load.bash'
 
 function setup(){
- pip3 install pyyaml
+ pip install --upgrade pip
+ pip install pyyaml
 }
 
 @test "IT:YAML template should have correct format" {
