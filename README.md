@@ -61,7 +61,7 @@ Go to Pipelines -> New Pipeline -> Select your repository and YAML file for pipe
 
 In DevOps project click Project Settings -> Agen Pools -> New Pool. Name it JMeterExecutors. Attach the agent by running the command
 
-`docker run -e AZP_URL=https://dev.azure.com/your_org -e AZP_TOKEN=YOUR_PAT AZP_POOL=JMeterExecutors -e AZP_AGENT_NAME=docker_gab gabrielstar/jmeter:2.2`
+`docker run -e AZP_URL=https://dev.azure.com/your_org -e AZP_TOKEN=YOUR_PAT -e AZP_POOL=JMeterExecutors -e AZP_AGENT_NAME=docker_gab gabrielstar/jmeter:2.2`
 
 Note: This can be container instance instead of a bare VM, then the command is
 
