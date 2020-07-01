@@ -8,7 +8,7 @@ schedules:
         - master
     always: true
 trigger: none
-pool: x
+#pool: x
 variables:
   - group: performance-secrets #must store DevOps 'pat' secret
   #jmeter test variables
