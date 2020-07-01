@@ -2,5 +2,5 @@ pyyaml
 requests
 configparser
 logging
-zipfile
+zipfile36
 pytest
